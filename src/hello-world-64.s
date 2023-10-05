@@ -1,4 +1,4 @@
-SECTION .rodata
+SECTION .data
   msg:    db  "Hello, world!", 10
   len:   equ $ - msg
 

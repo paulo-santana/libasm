@@ -3,6 +3,7 @@ PROGRAM = main
 
 SRC = main.c
 SRC_ASM = \
+					joao.s \
 					get_value.s \
 					hello-world-64.s \
 
