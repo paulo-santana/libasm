@@ -3,20 +3,16 @@ section .text
 global ft_strlen
 
 ft_strlen:
-  mov rsi, rax
-  jmp label
+  mov rax, rdi
+  jmp main_loop
 
-label:
-  mov dil, [rsi]
-  cmp dil, 0
+main_loop:
+  mov bl, byte [rax]
+  cmp bl, 0
   je end
-  inc rsi
-  loop label
+  inc rax
+  jmp main_loop
 
 end:
-  sub rsi, rax
-  mov rax, rsi
+  sub rax, rdi
   ret
-
-section .data
-  char: db 0
