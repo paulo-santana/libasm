@@ -2,10 +2,8 @@ NAME = libasm.a
 PROGRAM = main
 
 SRC = main.c
-SRC_ASM = \
-					joao.s \
-					get_value.s \
-					hello-world-64.s \
+SRC_ASM = ft_strlen.s \
+
 
 OBJ = $(SRC:%.c=$(OBJ_DIR)/%.o)
 OBJ_ASM = $(SRC_ASM:%.s=$(OBJ_DIR)/%.o)

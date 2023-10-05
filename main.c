@@ -1,16 +1,18 @@
-/* #include <stdio.h> */
+#include <stdio.h>
 /* #include <unistd.h> */
 
-/* extern char *get_value(); */
+/* extern int get_value(); */
 /* extern void print_hello(); */
+
+unsigned long ft_strlen(char *);
 
 int main(void) {
   /* print_hello(); */
-  /* char *value = get_value(); */
-  /* printf("Retrieved value: %s\n", value); */
-  /* return 0; */
+  unsigned long value = ft_strlen("1234589879");
+
+  /* ft_strlen("iala"); */
+  printf("string size: %ld\n", value);
   /* printf("Returned value: %d\n", value); */
 
-  void hello_world();
-  hello_world();
+  /* return 0; */
 }
