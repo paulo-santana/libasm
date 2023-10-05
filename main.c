@@ -1,15 +1,14 @@
 #include <stdio.h>
 
-size_t ft_strlen(char *);
+size_t ft_strlen(const char *str);
 
 int main(void) {
-  char *strings[] = {
-      "",
-      "iala",
-      "as ideia mano",
-      "\0\0",
-  };
 
+  /**************************************************************** ft_strlen */
+
+  char *strings[] = {"", "iala", "as ideia mano", "\0\0", NULL};
+
+  printf("*** ft_strlen tests ***\n");
   for (char **str = strings; *str != NULL; str++) {
     unsigned long value = ft_strlen(*str);
 
