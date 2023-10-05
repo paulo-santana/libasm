@@ -1,17 +1,21 @@
 #include <stdio.h>
-/* #include <unistd.h> */
 
-/* extern int get_value(); */
-/* extern void print_hello(); */
-
-unsigned long ft_strlen(char *);
+size_t ft_strlen(char *);
 
 int main(void) {
-  /* print_hello(); */
-  unsigned long value = ft_strlen("1234589879");
+  char *strings[] = {
+      "",
+      "iala",
+      "as ideia mano",
+      "\0\0",
+  };
 
-  /* ft_strlen("iala"); */
-  printf("string size: %ld\n", value);
+  for (char **str = strings; *str != NULL; str++) {
+    unsigned long value = ft_strlen(*str);
+
+    printf("size: %3lu, str: \"%s\"\n", value, *str);
+  }
+
   /* printf("Returned value: %d\n", value); */
 
   /* return 0; */
