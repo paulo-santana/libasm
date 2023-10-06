@@ -4,11 +4,9 @@ global ft_strlen
 
 ft_strlen:
   mov rax, rdi
-  jmp main_loop
 
 main_loop:
-  mov bl, byte [rax]
-  cmp bl, 0
+  cmp byte [rax], 0
   je end
   inc rax
   jmp main_loop
