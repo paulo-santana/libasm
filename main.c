@@ -1,7 +1,9 @@
 #include <stdio.h>
+#include <string.h>
 
 size_t ft_strlen(const char *str);
 char *ft_strcpy(char *dst, const char *src);
+int ft_strcmp(const char *first, const char *second);
 
 static void test_ft_strlen(void) {
   char *strings[] = {"", "iala", "as ideia mano", "vish\0\0maria", NULL};
@@ -26,7 +28,23 @@ static void test_ft_strcpy(void) {
   }
 }
 
+static void test_ft_strcmp(void) {
+  char *set_a[] = {"",    "abc",  "abcd", "abcd", "abcz",
+                   "abc", "abcd", "abCd", NULL};
+  char *set_b[] = {"",     "abc", "abcd", "abcz", "abcd",
+                   "abcd", "abc", "abcd", NULL};
+
+  printf("\n*** ft_strcmp tests ***\n");
+  for (char **a = set_a, **b = set_b; *a != NULL && *b != NULL; a++, b++) {
+    int value = ft_strcmp(*a, *b);
+    /* value = strcmp(*a, *b); */
+
+    printf("a: %-15s - b: %-15s - cmp: %-15d\n", *a, *b, value);
+  }
+}
+
 int main(void) {
   /* test_ft_strlen(); */
-  test_ft_strcpy();
+  /* test_ft_strcpy(); */
+  test_ft_strcmp();
 }

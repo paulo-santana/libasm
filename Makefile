@@ -4,6 +4,7 @@ PROGRAM = main
 SRC = main.c
 SRC_ASM := ft_strlen.s
 SRC_ASM += ft_strcpy.s
+SRC_ASM += ft_strcmp.s
 
 
 OBJ = $(SRC:%.c=$(OBJ_DIR)/%.o)
