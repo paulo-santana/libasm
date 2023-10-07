@@ -8,6 +8,7 @@ size_t ft_strlen(const char *str);
 char *ft_strcpy(char *dst, const char *src);
 int ft_strcmp(const char *first, const char *second);
 ssize_t ft_write(int fd, const void *buff, size_t count);
+ssize_t ft_read(int fd, void *buff, size_t count);
 
 static void test_ft_strlen(void) {
   char *strings[] = {"", "iala", "as ideia mano", "vish\0\0maria", NULL};
@@ -97,9 +98,54 @@ static void test_ft_write(void) {
   }
 }
 
+void test_ft_read(void) {
+  printf("\n*** ft_read tests ***\n");
+
+  char buff[11] = {};
+
+  printf("contents from stdin: \n");
+  fflush(NULL);
+
+  int result = 0;
+  while ((result = ft_read(0, buff, 10))) {
+    buff[result] = '\0';
+    printf("%s", buff);
+  }
+
+  // relevant errors
+  // EBADF
+  // EFAULT
+  // EINVAL
+  // EISDIR
+
+  int good_fd = open("./txt/good-file.txt", O_RDONLY);
+  int bad_fd = open("./txt/good-file.txt", O_WRONLY);
+  int dir_fd = open("./txt/", O_RDONLY);
+  int fds[] = {
+      0,       // STDIN
+      good_fd, // 3
+      bad_fd,  // 4
+      dir_fd,  // 5
+      42,      // invalid
+  };
+
+  for (int i = 0; i < 5; i++) {
+    int fd = fds[i];
+    printf("---------------------\n");
+    printf("fd %d\n", fd);
+    char buff[11] = {};
+    int result = ft_read(fd, buff, 10);
+    buff[result] = '\0';
+    printf("value read: %s\n", buff);
+    printf("return value: %d\n", result);
+    printf("errno: %d\n", errno);
+    perror("perror");
+  }
+}
+
 int main(void) {
   /* test_ft_strlen(); */
   /* test_ft_strcpy(); */
   /* test_ft_strcmp(); */
-  test_ft_write();
+  test_ft_read();
 }
