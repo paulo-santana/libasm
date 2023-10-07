@@ -1,9 +1,13 @@
+#include <errno.h>
+#include <fcntl.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 size_t ft_strlen(const char *str);
 char *ft_strcpy(char *dst, const char *src);
 int ft_strcmp(const char *first, const char *second);
+ssize_t ft_write(int fd, const void *buff, size_t count);
 
 static void test_ft_strlen(void) {
   char *strings[] = {"", "iala", "as ideia mano", "vish\0\0maria", NULL};
@@ -43,8 +47,59 @@ static void test_ft_strcmp(void) {
   }
 }
 
+static int open_file(const char *filename, int modes) {
+  printf("openning file %s\n", filename);
+
+  int fd = open(filename, modes, 0644);
+
+  if (fd < 0) {
+    printf("errno: %d | ", errno);
+    perror(filename);
+    exit(1);
+  }
+
+  return fd;
+}
+
+static void test_ft_write(void) {
+  char *strings[] = {"", "iala", "as ideia mano", "vish\0\0maria", NULL};
+
+  printf("\n*** ft_write tests ***\n");
+
+  int good_fd = open_file("obj/text-file", O_RDWR | O_CREAT | O_TRUNC);
+  int bad_fd = open_file("obj/text-file", O_RDONLY);
+
+  printf("file's fd: %d\n", good_fd);
+  printf("file's bad fd: %d\n", bad_fd);
+
+  for (int i = 1; i <= 5; i++) {
+    printf(" ---------- file descriptor: %d ----------\n", i);
+    for (char **str = strings; *str != NULL; str++) {
+      ssize_t result = ft_write(i, *str, strlen(*str));
+      printf("        - fd: %d - return value: %ld - errno: %d ", i, result,
+             errno);
+
+      if (result < 0) {
+        perror("description: ");
+      }
+      printf("\n");
+    }
+
+    ssize_t result = ft_write(i, NULL, 42);
+    printf("(NULL)  - fd: %d - return value: %ld - errno: %d ", i, result,
+           errno);
+
+    if (result < 0) {
+      perror("description: ");
+    }
+
+    printf("\n");
+  }
+}
+
 int main(void) {
   /* test_ft_strlen(); */
   /* test_ft_strcpy(); */
-  test_ft_strcmp();
+  /* test_ft_strcmp(); */
+  test_ft_write();
 }
