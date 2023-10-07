@@ -9,6 +9,7 @@ char *ft_strcpy(char *dst, const char *src);
 int ft_strcmp(const char *first, const char *second);
 ssize_t ft_write(int fd, const void *buff, size_t count);
 ssize_t ft_read(int fd, void *buff, size_t count);
+char *ft_strdup(const char *s);
 
 static void test_ft_strlen(void) {
   char *strings[] = {"", "iala", "as ideia mano", "vish\0\0maria", NULL};
@@ -143,9 +144,30 @@ void test_ft_read(void) {
   }
 }
 
+static void test_ft_strdup(void) {
+  printf("\n*** ft_read tests ***\n");
+
+  char *strings[] = {
+      "", "abc", "abcdefg", "vish\0maria", NULL,
+  };
+
+  for (char **str = strings; *str != NULL; str++) {
+    char *result = ft_strdup(*str);
+    if (!result) {
+      perror("perror: ft_strdup");
+      continue;
+    }
+    printf("string (%p): %-15s - result (%p): %-15s\n", *str, *str, result,
+           result);
+    free(result);
+  }
+}
+
 int main(void) {
-  /* test_ft_strlen(); */
-  /* test_ft_strcpy(); */
-  /* test_ft_strcmp(); */
+  test_ft_strlen();
+  test_ft_strcpy();
+  test_ft_strcmp();
+  test_ft_write();
   test_ft_read();
+  test_ft_strdup();
 }

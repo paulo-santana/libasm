@@ -18,7 +18,7 @@ copy:
   jmp copy
 
 end:
-  mov al, [byte rsi]
+  mov al, [rsi]
   mov byte [rbx], al
   mov rax, rdi
   ret
