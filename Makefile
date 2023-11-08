@@ -9,6 +9,8 @@ SRC_ASM += ft_write.s
 SRC_ASM += ft_read.s
 SRC_ASM += ft_strdup.s
 
+SRC_ASM += ft_atoi_base.s
+
 OBJ = $(SRC:%.c=$(OBJ_DIR)/%.o)
 OBJ_ASM = $(SRC_ASM:%.s=$(OBJ_DIR)/%.o)
 

@@ -11,6 +11,8 @@ ssize_t ft_write(int fd, const void *buff, size_t count);
 ssize_t ft_read(int fd, void *buff, size_t count);
 char *ft_strdup(const char *s);
 
+int ft_atoi_base(const char *number, const char *base);
+
 static void test_ft_strlen(void) {
   char *strings[] = {"", "iala", "as ideia mano", "vish\0\0maria", NULL};
 
@@ -163,11 +165,59 @@ static void test_ft_strdup(void) {
   }
 }
 
+static void test_ft_atoi_base(void) {
+  char *pairs[] = {
+    "",              "01",                  // binary
+    "0",             "01",                  // binary
+    "1",             "01",                  // binary
+    "10",            "01",                  // binary
+    "1020",          "01",                  // binary
+    "01010",         "01",                  // binary
+    "+1010",         "01",                  // binary
+    "-1010",         "01",                  // binary
+    "+01010",        "01",                  // binary
+    "-01010",        "01",                  // binary
+    "--01010",       "01",                  // binary
+    "   ++++-+--1010", "01",                // binary
+    "111111111111a", "01",                  // binary
+    "  00000",         "012",               // ternary
+    "17",            "01234567",            // octal
+    "202",           "01234567",            // octal
+    "1001",          "01234567",            // octal
+    "20",            "0123456789",          // decimal
+    "123",           "0123456789",          // decimal
+    "ff",            "0123456789abcdef",    // hexadecimal
+    "FFF",           "0123456789ABCDEF",    // hexadecimal
+    "FFFF",          "0123456789ABCDEF",    // hexadecimal
+    "FFFFF",         "0123456789ABCDEF",    // hexadecimal
+    "FFFFFF",        "0123456789ABCDEF",    // hexadecimal
+    "FFFFFFF",       "0123456789ABCDEF",    // hexadecimal
+    "FFFFFFFE",      "0123456789ABCDEF",    // hexadecimal
+    "FFFFFFFF",      "0123456789ABCDEF",    // hexadecimal
+    "7FFFFFFF",      "0123456789ABCDEF",    // hexadecimal
+    "80000000",      "0123456789ABCDEF",    // hexadecimal
+    "A5",            "0123456789ABCDEF",    // hexadecimal
+    "F0DA",          "0123456789ABCDEF",    // hexadecimal
+    "00-20",         "0-12",                // invalid base
+    "0121",          "012+",                // invalid base
+    "00 20",         "0 12",                // invalid base
+  };
+
+  for (int i = 0; i < sizeof(pairs) / sizeof(char *); i += 2) {
+    char *number = pairs[i];
+    char *base = pairs[i + 1];
+    int base_size = ft_atoi_base(number, base);
+
+    printf("%15s, %-18s -> result: %d\n", number, base, base_size);
+  }
+}
+
 int main(void) {
-  test_ft_strlen();
-  test_ft_strcpy();
-  test_ft_strcmp();
-  test_ft_write();
-  test_ft_read();
-  test_ft_strdup();
+  /* test_ft_strlen(); */
+  /* test_ft_strcpy(); */
+  /* test_ft_strcmp(); */
+  /* test_ft_write(); */
+  /* test_ft_read(); */
+  /* test_ft_strdup(); */
+  test_ft_atoi_base();
 }
